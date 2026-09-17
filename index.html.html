@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAP GARAGE — Automotive Service</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#111;color:#fff}
+nav{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:#111;position:sticky;top:0;z-index:5}
+.logo{font-size:28px;font-weight:900;letter-spacing:1px}.logo span{color:#f4c400}
+nav a{color:#ddd;text-decoration:none;margin:0 14px;font-size:13px;font-weight:bold}
+.btn{background:#f4c400;color:#111!important;padding:14px 20px!important;font-weight:900;border-radius:2px}
+.hero{min-height:650px;display:flex;align-items:center;padding:80px 7%;background:linear-gradient(90deg,#0b0b0b 15%,rgba(11,11,11,.75),rgba(11,11,11,.25)),radial-gradient(circle at 75% 45%,#555 0,#222 25%,#111 60%);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:55%;height:100%;right:-10%;top:0;background:repeating-linear-gradient(125deg,transparent 0 34px,rgba(244,196,0,.08) 35px 39px);transform:skewX(-15deg)}
+.hero-content{max-width:700px;position:relative;z-index:2}.eyebrow{color:#f4c400;font-weight:900;letter-spacing:3px}.hero h1{font-size:clamp(50px,7vw,92px);line-height:.9;margin:18px 0}.hero h1 span{color:#f4c400}.hero p{font-size:19px;color:#ccc;line-height:1.6;max-width:580px}.actions{display:flex;gap:14px;margin-top:30px}.outline{border:1px solid #777;color:#fff;padding:14px 20px;text-decoration:none;font-weight:bold}
+section{padding:85px 7%}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:38px}.section-head h2{font-size:42px;margin:0}.section-head p{color:#aaa;max-width:430px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}.card{background:#1b1b1b;padding:34px;min-height:190px;border-left:3px solid transparent}.card:hover{border-color:#f4c400}.icon{font-size:32px;color:#f4c400}.card h3{margin:18px 0 8px}.card p{color:#aaa;line-height:1.5}
+.fleet{background:#191919;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}.fleet-box{border:1px solid #444;padding:35px;background:linear-gradient(145deg,#222,#151515)}.fleet h2{font-size:50px;margin:10px 0}.fleet p{color:#bbb;line-height:1.7}.tags{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0}.tag{border:1px solid #555;padding:9px 13px;font-size:12px;color:#ddd}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#333}.stat{background:#111;padding:35px;text-align:center}.stat b{display:block;font-size:38px;color:#f4c400}.stat span{color:#aaa;font-size:12px}
+.contact{background:#f4c400;color:#111;display:flex;justify-content:space-between;align-items:center;gap:30px}.contact h2{font-size:44px;margin:0}.contact p{font-weight:bold}
+footer{padding:30px 7%;background:#090909;color:#777;display:flex;justify-content:space-between}
+@media(max-width:800px){nav .links{display:none}.grid,.fleet,.stats{grid-template-columns:1fr}.hero{min-height:600px}.section-head,.contact,footer{display:block}.section-head p{margin-top:18px}.hero h1{font-size:58px}}
+
+/* --- SAP GARAGE interactive layer --- */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+nav{backdrop-filter:blur(12px);background:rgba(10,10,10,.88);border-bottom:1px solid rgba(255,255,255,.08)}
+.logo{transition:.3s}.logo:hover{transform:scale(1.03)}
+.hero{background:linear-gradient(90deg,#080808 10%,rgba(8,8,8,.72),rgba(8,8,8,.25)),radial-gradient(circle at 78% 42%,#777 0,#252525 24%,#101010 63%);animation:heroIn 1.2s ease both}
+.hero-content{animation:rise .9s ease .15s both}
+.hero h1{letter-spacing:-2px}
+.card{transition:transform .3s ease,background .3s ease,border-color .3s ease;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;inset:-80px auto auto -80px;width:160px;height:160px;border-radius:50%;background:rgba(244,196,0,.08);transition:.4s}
+.card:hover{transform:translateY(-7px);background:#222}
+.card:hover:before{transform:scale(2)}
+.btn{transition:transform .2s,box-shadow .2s}.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(244,196,0,.22)}
+.outline{transition:.2s}.outline:hover{background:#fff;color:#111!important}
+.fleet-box{animation:pulseBorder 4s ease-in-out infinite}
+.stat{transition:.25s}.stat:hover{transform:translateY(-4px)}
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
+.lang-switch{display:inline-flex;align-items:center;border:1px solid #444;border-radius:20px;padding:3px;margin-left:8px;background:#151515}
+.lang-switch button{border:0;background:transparent;color:#aaa;padding:6px 9px;border-radius:16px;font-size:11px;font-weight:900;cursor:pointer}.lang-switch button.active{background:#f4c400;color:#111}
+#chat-toggle{position:fixed;right:24px;bottom:24px;width:62px;height:62px;border:0;border-radius:50%;background:#f4c400;color:#111;font-size:25px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.45);cursor:pointer;z-index:20;animation:float 2.8s ease-in-out infinite}
+#chat-box{position:fixed;right:24px;bottom:98px;width:min(360px,calc(100vw - 30px));height:500px;background:#171717;border:1px solid #444;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.55);z-index:20;display:none;overflow:hidden}
+#chat-box.open{display:flex;flex-direction:column;animation:chatIn .25s ease}
+.chat-head{padding:16px;background:#0d0d0d;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center}
+.chat-head strong{font-size:15px}.online{font-size:11px;color:#f4c400;margin-top:3px}
+#chat-close{border:0;background:none;color:#aaa;font-size:20px;cursor:pointer}
+#chat-messages{flex:1;padding:15px;overflow:auto;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:86%;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.45}.bot{background:#262626;align-self:flex-start}.user{background:#f4c400;color:#111;align-self:flex-end}
+.quick{display:flex;gap:6px;overflow:auto;padding:8px 12px;border-top:1px solid #333}.quick button{white-space:nowrap;border:1px solid #555;background:#202020;color:#ddd;border-radius:15px;padding:7px 10px;font-size:11px;cursor:pointer}
+.chat-input{display:flex;padding:10px;border-top:1px solid #333;gap:7px}.chat-input input{flex:1;background:#222;border:1px solid #444;color:#fff;border-radius:8px;padding:10px}.chat-input button{border:0;background:#f4c400;border-radius:8px;padding:0 14px;font-weight:bold;cursor:pointer}
+@keyframes heroIn{from{opacity:.4;transform:scale(1.03)}to{opacity:1;transform:none}}@keyframes rise{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}@keyframes pulseBorder{0%,100%{border-color:#444}50%{border-color:#f4c400}}@keyframes float{50%{transform:translateY(-7px)}}@keyframes chatIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:800px){.lang-switch{margin:10px 0}.hero{background:linear-gradient(90deg,#080808 5%,rgba(8,8,8,.85)),radial-gradient(circle at 75% 40%,#555,#111 55%)}#chat-box{right:15px;bottom:90px}}
+</style>
+</head>
+<body>
+<nav><div class="logo">SAP <span>GARAGE</span></div><div class="links"><a href="#services">SERVICES</a><a href="#fleet">FLEET</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a><a class="btn" href="#contact" data-fr="PRENDRE RENDEZ-VOUS" data-en="BOOK A SERVICE">BOOK A SERVICE</a>
+<div class="lang-switch"><button id="frBtn" class="active">FR</button><button id="enBtn">EN</button></div></div></nav>
+<header class="hero"><div class="hero-content"><div class="eyebrow" data-fr="SERVICE AUTOMOBILE • MADAGASCAR" data-en="AUTOMOTIVE SERVICE • MADAGASCAR">SERVICE AUTOMOBILE • MADAGASCAR</div><h1 data-fr="VOTRE VÉHICULE.<br><span>NOTRE EXPERTISE.</span>" data-en="YOUR VEHICLE.<br><span>OUR EXPERTISE.</span>">VOTRE VÉHICULE.<br><span>NOTRE EXPERTISE.</span></h1><p>Entretien, diagnostic et réparation automobile pour particuliers et professionnels. Des solutions pensées pour maintenir vos véhicules disponibles et performants.</p><div class="actions"><a class="btn" href="#contact" data-fr="DEMANDER UN DEVIS" data-en="REQUEST A QUOTE">DEMANDER UN DEVIS</a><a class="outline" href="#services" data-fr="NOS SERVICES" data-en="OUR SERVICES">NOS SERVICES</a></div></div></header>
+<section id="services"><div class="section-head"><h2 data-fr="NOS SERVICES" data-en="OUR SERVICES">NOS SERVICES</h2><p>Une approche moderne de l'entretien automobile : diagnostic, prévention et réparation.</p></div><div class="grid">
+<div class="card"><div class="icon">⚙</div><h3>MECHANICAL</h3><p>Entretien et réparation mécanique, moteur et transmission.</p></div>
+<div class="card"><div class="icon">⚡</div><h3>DIAGNOSTICS</h3><p>Recherche de panne et diagnostic électronique des véhicules.</p></div>
+<div class="card"><div class="icon">■</div><h3>BRAKES</h3><p>Contrôle, entretien et réparation du système de freinage.</p></div>
+<div class="card"><div class="icon">◉</div><h3>TIRES</h3><p>Pneumatiques, montage, équilibrage et contrôle.</p></div>
+<div class="card"><div class="icon">↕</div><h3>SUSPENSION</h3><p>Contrôle et intervention sur les éléments de suspension.</p></div>
+<div class="card"><div class="icon">❄</div><h3>AIR CONDITIONING</h3><p>Diagnostic et entretien de la climatisation automobile.</p></div>
+</div></section>
+<section class="fleet" id="fleet"><div><div class="eyebrow">BUSINESS SOLUTIONS</div><h2 data-fr="SERVICES<br><span style="color:#f4c400">FLOTTE.</span>" data-en="FLEET<br><span style="color:#f4c400">SERVICES.</span>">SERVICES<br><span style="color:#f4c400">FLOTTE.</span></h2><p>Votre flotte est un outil de travail. SAP GARAGE accompagne les entreprises dans la maintenance préventive, le suivi des interventions et la réparation de leurs véhicules.</p><a class="btn" href="#contact">PARLER À UN CONSEILLER</a></div><div class="fleet-box"><h3>SECTEURS</h3><div class="tags"><span class="tag">MINING</span><span class="tag">CONSTRUCTION</span><span class="tag">TRANSPORT</span><span class="tag">LOGISTICS</span><span class="tag">NGOs</span><span class="tag">CORPORATE</span></div><p>Maintenance • Inspection • Repair • Diagnostics • Vehicle History</p></div></section>
+<section id="about"><div class="section-head"><h2 data-fr="POURQUOI SAP GARAGE ?" data-en="WHY SAP GARAGE?">POURQUOI SAP GARAGE?</h2><p>Construire une relation durable avec chaque client, particulier comme professionnel.</p></div><div class="stats"><div class="stat"><b>01</b><span>TECHNICAL EXPERTISE</span></div><div class="stat"><b>02</b><span>QUALITY SERVICE</span></div><div class="stat"><b>03</b><span>TRANSPARENT PROCESS</span></div><div class="stat"><b>04</b><span>PROFESSIONAL SUPPORT</span></div></div></section>
+<section class="contact" id="contact"><div><h2 data-fr="CONTINUEZ À AVANCER." data-en="KEEP MOVING.">CONTINUEZ À AVANCER.</h2><p>Besoin d'un entretien, d'un diagnostic ou d'une solution pour votre flotte ?</p></div><a class="outline" style="border-color:#111;color:#111" href="mailto:contact@sapgarage.test">CONTACT SAP GARAGE</a></section>
+<footer><strong>SAP GARAGE</strong><span>Plus qu'un garage, un partenaire de confiance.</span></footer>
+
+<button id="chat-toggle" aria-label="Assistant SAP GARAGE">✦</button>
+<div id="chat-box">
+  <div class="chat-head"><div><strong>SAP GARAGE AI</strong><div class="online">● Assistant virtuel</div></div><button id="chat-close">×</button></div>
+  <div id="chat-messages"><div class="msg bot" id="welcome">Bonjour ! Je suis l’assistant SAP GARAGE. Comment puis-je vous aider ?</div></div>
+  <div class="quick"><button data-q="Quels services proposez-vous ?">Services</button><button data-q="Je veux un devis">Devis</button><button data-q="Je suis une entreprise">Entreprise</button></div>
+  <div class="chat-input"><input id="chat-input" placeholder="Écrivez votre message..."><button id="chat-send">➤</button></div>
+</div>
+<script>
+(function(){
+ const fr=document.getElementById('frBtn'), en=document.getElementById('enBtn');
+ function setLang(lang){
+   document.documentElement.lang=lang;
+   document.querySelectorAll('[data-fr]').forEach(el=>el.innerHTML=el.getAttribute('data-'+lang));
+   fr.classList.toggle('active',lang==='fr'); en.classList.toggle('active',lang==='en');
+   document.querySelector('.chat-input input').placeholder=lang==='fr'?'Écrivez votre message...':'Type your message...';
+ }
+ fr.onclick=()=>setLang('fr'); en.onclick=()=>setLang('en');
+
+ const box=document.getElementById('chat-box'), toggle=document.getElementById('chat-toggle');
+ toggle.onclick=()=>box.classList.toggle('open'); document.getElementById('chat-close').onclick=()=>box.classList.remove('open');
+ const messages=document.getElementById('chat-messages'), input=document.getElementById('chat-input');
+ function answer(q){
+   let x=q.toLowerCase(), a;
+   if(x.includes('devis')||x.includes('quote')) a="Bien sûr. Pour préparer une demande de devis, indiquez le véhicule, le modèle, l’année et le service souhaité. Vous pourrez ensuite nous transmettre vos coordonnées.";
+   else if(x.includes('entreprise')||x.includes('flotte')||x.includes('business')) a="SAP GARAGE accompagne les professionnels : maintenance préventive, diagnostic, réparations, pneumatiques et suivi des interventions de flotte.";
+   else if(x.includes('service')) a="Nous proposons notamment mécanique, diagnostic électronique, freinage, pneumatiques, suspension, climatisation et entretien.";
+   else a="Merci pour votre message. Je peux vous renseigner sur nos services, les demandes de devis et les solutions pour entreprises. Pour une intervention réelle, notre équipe devra confirmer les informations.";
+   const d=document.createElement('div'); d.className='msg bot'; d.textContent=a; messages.appendChild(d); messages.scrollTop=messages.scrollHeight;
+ }
+ function send(){
+   let q=input.value.trim(); if(!q)return;
+   const d=document.createElement('div'); d.className='msg user'; d.textContent=q; messages.appendChild(d); input.value='';
+   setTimeout(()=>answer(q),350);
+ }
+ document.getElementById('chat-send').onclick=send; input.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
+ document.querySelectorAll('.quick button').forEach(b=>b.onclick=()=>{input.value=b.dataset.q;send()});
+ const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+ document.querySelectorAll('section').forEach(s=>{s.classList.add('reveal');obs.observe(s)});
+})();
+</script>
+</body></html>
